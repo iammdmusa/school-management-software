@@ -247,9 +247,9 @@ class Create extends CI_Controller {
          $smsStudentInfo = $this->Admin_model->get_greeting_sms_student_info($school_id); 
          if($smsStudentInfo)
          {
-             $url = 'http://sms.sslwireless.com/xenontech/server.php'; 
-             $data['user'] = 'xenon@ssl';
-             $data['pass'] = 'xenon_ssl_tech'; 
+             $url = ''; 
+             $data['user'] = '';
+             $data['pass'] = ''; 
              $inc = 0;
              
              while($smsStudentInfo)
@@ -1248,9 +1248,9 @@ class Create extends CI_Controller {
             }
             $teacherInfo = $this->Admin_model->get_school_sms_teacher_list($_SESSION['school_id'],$con); 
             
-            $url = 'http://sms.sslwireless.com/xenontech/server.php'; 
-            $data['user'] = 'xenon@ssl';
-            $data['pass'] = 'xenon_ssl_tech'; 
+            $url = ''; 
+            $data['user'] = '';
+            $data['pass'] = ''; 
             $inc = 0;  
             
             
