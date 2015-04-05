@@ -1,0 +1,48 @@
+.custom_table  table {
+    font: 12px/24px georgia;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom:5px;
+    font-style: italic;
+    }
+
+.custom_table tr th {
+    padding: 0 0.5em;
+    text-align: left;
+	background:#e6e6e6;
+    }
+
+.custom_table tr.yellow td {
+    border-top: 1px solid #afafaf;
+    background: #e6e6e6;
+    }
+
+.custom_table tr.price td {
+    border-top: 1px solid #afafaf;
+    background: #d7f6d3;
+    font-size: 17px;
+    padding: 10px 0 10px 0;
+    }
+
+.custom_table tr.price td:first-child {
+    font-size: 12px;
+    }
+
+.custom_table td {
+    border-top: 1px solid #afafaf;
+    padding: 0 0.5em;
+    }
+
+.custom_table tr:hover {
+    background: #bcbcbc;
+    }
+
+.custom_table td:first-child {
+    width: 100px;
+    text-align: center;
+    }
+
+.custom_table td+td {
+    border-left: 0px solid #CCC;
+    text-align: center;
+    }
