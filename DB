@@ -1,0 +1,586 @@
+-- phpMyAdmin SQL Dump
+-- version 4.2.11
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 05, 2015 at 07:07 PM
+-- Server version: 5.6.21
+-- PHP Version: 5.6.3
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `xenon`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_admin`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_admin` (
+`admin_id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `is_superadmin` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 = school ; 1 = super asmin ; 2 = School Register; 3 =  School Teacher',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `school_id` int(11) NOT NULL,
+  `created_on` datetime NOT NULL,
+  `attendance_class_name_id` varchar(100) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=108 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_attendance`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_attendance` (
+`attendance_id` int(11) NOT NULL,
+  `class_name_id` int(11) NOT NULL,
+  `section_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `is_present` int(11) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `created_on` datetime NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `is_message_sent` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=33138 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_class`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_class` (
+`class_id` int(11) NOT NULL,
+  `class_name_id` int(11) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `section_id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_on` datetime NOT NULL,
+  `school_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=812 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_class_name`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_class_name` (
+`class_name_id` int(11) NOT NULL,
+  `classname` varchar(100) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_custom_sms`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_custom_sms` (
+`custom_sms_id` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `total_sms` int(11) NOT NULL,
+  `school_id` int(5) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=965 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_exam`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_exam` (
+`exam_id` int(11) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `exam_name` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_greeting`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_greeting` (
+`greeting_id` int(11) NOT NULL,
+  `greeting_title` varchar(255) NOT NULL,
+  `greeting` text NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_migration`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_migration` (
+  `student_id` int(11) NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `father_name` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `mother_name` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `gurdian_name` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `gurdian_relation` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `gurdian_phon_no` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `class_name_id` int(11) NOT NULL,
+  `section_id` int(11) NOT NULL,
+  `roll_no` int(10) NOT NULL,
+  `created_on` datetime NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `school_id` int(11) NOT NULL,
+  `birthdate` datetime NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `nickname` varchar(100) DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `is_enrolled` varchar(20) DEFAULT NULL,
+  `homeaddress` varchar(255) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `country` varchar(100) DEFAULT NULL,
+  `homephone` varchar(20) DEFAULT NULL,
+  `cellphone` varchar(20) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_result_summary`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_result_summary` (
+`result_summary_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL DEFAULT '1',
+  `cgpa` float(11,2) NOT NULL DEFAULT '0.00',
+  `position` int(11) NOT NULL DEFAULT '0',
+  `school_id` int(11) NOT NULL DEFAULT '1',
+  `class_name_id` int(3) NOT NULL,
+  `section_id` int(3) NOT NULL,
+  `marks` float(10,2) NOT NULL DEFAULT '0.00'
+) ENGINE=MyISAM AUTO_INCREMENT=15326 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_school`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_school` (
+`school_id` int(11) NOT NULL,
+  `school_name` varchar(255) NOT NULL,
+  `mail_id` varchar(255) NOT NULL,
+  `phon_no` varchar(50) NOT NULL,
+  `school_short_name` varchar(255) NOT NULL,
+  `billing_information` varchar(255) NOT NULL,
+  `sms_quota` int(11) NOT NULL,
+  `school_username` varchar(255) NOT NULL,
+  `admin_id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_on` datetime NOT NULL,
+  `billing_status` tinyint(1) NOT NULL,
+  `current_billing_year` varchar(100) NOT NULL,
+  `sid` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_school_logo`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_school_logo` (
+`school_logo_id` int(11) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `logo` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_section`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_section` (
+`section_id` int(11) NOT NULL,
+  `section` varchar(100) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `created_on` datetime NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_session_print`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_session_print` (
+`session_print_id` int(11) NOT NULL,
+  `student_result_id` int(11) DEFAULT NULL,
+  `session_id` varchar(255) DEFAULT NULL,
+  `class_name_id` int(11) DEFAULT NULL,
+  `section_id` int(11) DEFAULT NULL,
+  `exam_id` int(11) DEFAULT NULL,
+  `school_id` int(11) NOT NULL,
+  `is_print` tinyint(1) NOT NULL DEFAULT '0',
+  `student_id` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM AUTO_INCREMENT=1690 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_sms`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_sms` (
+`sms_id` int(11) NOT NULL,
+  `sms` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `school_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_sms_count`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_sms_count` (
+`sent_id` int(11) NOT NULL,
+  `no_of_sms` int(11) NOT NULL,
+  `school_id` int(5) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_student`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_student` (
+`student_id` int(11) NOT NULL,
+  `display_id` varchar(255) NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `father_name` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `mother_name` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `gurdian_name` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `gurdian_relation` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `gurdian_phon_no` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `class_name_id` int(11) NOT NULL,
+  `section_id` int(11) NOT NULL,
+  `roll_no` int(10) NOT NULL,
+  `created_on` datetime NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `school_id` int(11) NOT NULL,
+  `birthdate` datetime NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `nickname` varchar(100) DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `is_enrolled` varchar(20) DEFAULT NULL,
+  `homeaddress` varchar(255) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `country` varchar(100) DEFAULT NULL,
+  `homephone` varchar(20) DEFAULT NULL,
+  `cellphone` varchar(20) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `migration` int(2) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2140 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_student_result`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_student_result` (
+`student_result_id` int(11) NOT NULL,
+  `class_name_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `marks` float NOT NULL,
+  `grade_id` varchar(10) NOT NULL,
+  `remarks` varchar(10) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_on` datetime NOT NULL,
+  `class_id` int(11) NOT NULL COMMENT 'this id is being used for getting subject name',
+  `exam_id` int(11) NOT NULL,
+  `is_result_sent` tinyint(1) NOT NULL DEFAULT '0',
+  `exam_date` varchar(20) DEFAULT NULL,
+  `section_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=36123 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_teacher`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_teacher` (
+`teacher_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `userid` varchar(100) NOT NULL,
+  `phon_no` varchar(20) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_on` datetime NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `admin_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_teacher_allowed_attendence`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_teacher_allowed_attendence` (
+`teacher_allowed_attendence_id` int(11) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `admin_id` int(11) NOT NULL,
+  `class_name_id` int(11) NOT NULL,
+  `section_id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scl_teacher_assign_subject`
+--
+
+CREATE TABLE IF NOT EXISTS `scl_teacher_assign_subject` (
+`teacher_assign_subject_id` int(11) NOT NULL,
+  `teacher_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_on` datetime NOT NULL,
+  `class_name_id` int(11) NOT NULL,
+  `section_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `scl_admin`
+--
+ALTER TABLE `scl_admin`
+ ADD PRIMARY KEY (`admin_id`);
+
+--
+-- Indexes for table `scl_attendance`
+--
+ALTER TABLE `scl_attendance`
+ ADD PRIMARY KEY (`attendance_id`);
+
+--
+-- Indexes for table `scl_class`
+--
+ALTER TABLE `scl_class`
+ ADD PRIMARY KEY (`class_id`);
+
+--
+-- Indexes for table `scl_class_name`
+--
+ALTER TABLE `scl_class_name`
+ ADD KEY `class_name_id` (`class_name_id`);
+
+--
+-- Indexes for table `scl_custom_sms`
+--
+ALTER TABLE `scl_custom_sms`
+ ADD PRIMARY KEY (`custom_sms_id`);
+
+--
+-- Indexes for table `scl_exam`
+--
+ALTER TABLE `scl_exam`
+ ADD PRIMARY KEY (`exam_id`);
+
+--
+-- Indexes for table `scl_greeting`
+--
+ALTER TABLE `scl_greeting`
+ ADD PRIMARY KEY (`greeting_id`);
+
+--
+-- Indexes for table `scl_result_summary`
+--
+ALTER TABLE `scl_result_summary`
+ ADD PRIMARY KEY (`result_summary_id`), ADD UNIQUE KEY `result_summary_id` (`result_summary_id`);
+
+--
+-- Indexes for table `scl_school`
+--
+ALTER TABLE `scl_school`
+ ADD PRIMARY KEY (`school_id`);
+
+--
+-- Indexes for table `scl_school_logo`
+--
+ALTER TABLE `scl_school_logo`
+ ADD PRIMARY KEY (`school_logo_id`);
+
+--
+-- Indexes for table `scl_section`
+--
+ALTER TABLE `scl_section`
+ ADD KEY `section_id` (`section_id`);
+
+--
+-- Indexes for table `scl_session_print`
+--
+ALTER TABLE `scl_session_print`
+ ADD PRIMARY KEY (`session_print_id`);
+
+--
+-- Indexes for table `scl_sms`
+--
+ALTER TABLE `scl_sms`
+ ADD PRIMARY KEY (`sms_id`);
+
+--
+-- Indexes for table `scl_sms_count`
+--
+ALTER TABLE `scl_sms_count`
+ ADD PRIMARY KEY (`sent_id`);
+
+--
+-- Indexes for table `scl_student`
+--
+ALTER TABLE `scl_student`
+ ADD PRIMARY KEY (`student_id`);
+
+--
+-- Indexes for table `scl_student_result`
+--
+ALTER TABLE `scl_student_result`
+ ADD PRIMARY KEY (`student_result_id`);
+
+--
+-- Indexes for table `scl_teacher`
+--
+ALTER TABLE `scl_teacher`
+ ADD PRIMARY KEY (`teacher_id`);
+
+--
+-- Indexes for table `scl_teacher_allowed_attendence`
+--
+ALTER TABLE `scl_teacher_allowed_attendence`
+ ADD PRIMARY KEY (`teacher_allowed_attendence_id`);
+
+--
+-- Indexes for table `scl_teacher_assign_subject`
+--
+ALTER TABLE `scl_teacher_assign_subject`
+ ADD KEY `teacher_assign_subject_id` (`teacher_assign_subject_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `scl_admin`
+--
+ALTER TABLE `scl_admin`
+MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=108;
+--
+-- AUTO_INCREMENT for table `scl_attendance`
+--
+ALTER TABLE `scl_attendance`
+MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33138;
+--
+-- AUTO_INCREMENT for table `scl_class`
+--
+ALTER TABLE `scl_class`
+MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=812;
+--
+-- AUTO_INCREMENT for table `scl_class_name`
+--
+ALTER TABLE `scl_class_name`
+MODIFY `class_name_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT for table `scl_custom_sms`
+--
+ALTER TABLE `scl_custom_sms`
+MODIFY `custom_sms_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=965;
+--
+-- AUTO_INCREMENT for table `scl_exam`
+--
+ALTER TABLE `scl_exam`
+MODIFY `exam_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
+--
+-- AUTO_INCREMENT for table `scl_greeting`
+--
+ALTER TABLE `scl_greeting`
+MODIFY `greeting_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `scl_result_summary`
+--
+ALTER TABLE `scl_result_summary`
+MODIFY `result_summary_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15326;
+--
+-- AUTO_INCREMENT for table `scl_school`
+--
+ALTER TABLE `scl_school`
+MODIFY `school_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT for table `scl_school_logo`
+--
+ALTER TABLE `scl_school_logo`
+MODIFY `school_logo_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `scl_section`
+--
+ALTER TABLE `scl_section`
+MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
+--
+-- AUTO_INCREMENT for table `scl_session_print`
+--
+ALTER TABLE `scl_session_print`
+MODIFY `session_print_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1690;
+--
+-- AUTO_INCREMENT for table `scl_sms`
+--
+ALTER TABLE `scl_sms`
+MODIFY `sms_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `scl_sms_count`
+--
+ALTER TABLE `scl_sms_count`
+MODIFY `sent_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `scl_student`
+--
+ALTER TABLE `scl_student`
+MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2140;
+--
+-- AUTO_INCREMENT for table `scl_student_result`
+--
+ALTER TABLE `scl_student_result`
+MODIFY `student_result_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36123;
+--
+-- AUTO_INCREMENT for table `scl_teacher`
+--
+ALTER TABLE `scl_teacher`
+MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=66;
+--
+-- AUTO_INCREMENT for table `scl_teacher_allowed_attendence`
+--
+ALTER TABLE `scl_teacher_allowed_attendence`
+MODIFY `teacher_allowed_attendence_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
+--
+-- AUTO_INCREMENT for table `scl_teacher_assign_subject`
+--
+ALTER TABLE `scl_teacher_assign_subject`
+MODIFY `teacher_assign_subject_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
