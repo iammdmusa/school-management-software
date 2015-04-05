@@ -16,7 +16,7 @@
 */
 #http://xenontech.tk/BanbeisBookStore/
 #$config['base_url']    = 'http://xenontech.tk/travel/'; 
-$config['base_url']	= 'http://xenontech.net/school/';
+$config['base_url']	= 'http://localhost/school/school/';
 $config['doc_root']    = $_SERVER['DOCUMENT_ROOT'].'/school/';
 $config['projectname']	= 'travel-agency';
 
